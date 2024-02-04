@@ -1,0 +1,65 @@
+﻿@model StudentStore.Models.FileUploadViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1 class="text-center pb-16" style="margin-bottom:20px;"> All Files</h1>
+<div class="container ">
+    
+    <form asp-action="Upload" method="post" enctype="multipart/form-data" id="uploadForm">
+        <div class="form-group ">
+            <div class="row">
+                <div class="col-2">
+                    <h5>Want to Upload file?</h5>
+                </div>
+                <div class="col-3">
+                    <input asp-for="File" id="fileInput" type="file" class="form-control" multiple required />
+                    <span id="fileList" class="text-muted">No files selected</span>
+                    <span asp-validation-for="File" class="text-danger"></span>
+                </div>
+                <div class="col-2">
+                    <button type="submit" style="min-width:100px;min-height:contain;" class="btn btn-primary">Upload</button>
+                </div>
+                
+                
+            </div>
+            
+        </div>
+
+
+    </form>
+</div>
+
+
+
+
+
+    <div class="container mt-5">
+    <ul class="list-group mt-3">
+        @foreach (var file in Model.Documents)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                @file.FileName
+                <div class="btn-group p-2 m-2" role="group" aria-label="File Actions">
+ 
+                        @Html.ActionLink(
+                            "Download" ,
+                            "Download", new { @file.Id },
+                                 new { @class = "btn btn-primary", role = "button", title = "Download", style="margin-right: 8px;" }
+                        )
+                    @Html.ActionLink(
+                             "Delete",
+                             "Delete", new { @file.Id },
+                             new { @class = "btn btn-danger", role = "button", title = "Download", style = "margin-right: 8px;" }
+                             )
+                </div>
+            </li>
+        }
+    </ul>
+    </div>
+
+
+
+
+
